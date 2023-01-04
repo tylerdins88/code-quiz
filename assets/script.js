@@ -1,3 +1,7 @@
+// _________ is used by programmers across the world to create dynamic and interactive web content like applications and browsers.
+// JavaScript, JavaMocha, FunctionScript, DuckRace
+// The _________ method calls a function at specified intervals.
+// setInterval, setTime, timeInterval, intervalStart
 
 // the start button starts a countdown timer, has a question appear, answer choices appear
 // the user chooses selects a answer.
@@ -19,20 +23,25 @@
 // array[1] is the answer choices
 // append [0] to the id=questionEl
 // append [1] to the id=answerEl
-// _________ is used by programmers across the world to create dynamic and interactive web content like applications and browsers.
-// JavaScript, JavaMocha, FunctionScript, DuckRace
+// this is a function that is called up when time down starts
 
-// The _________ method calls a function at specified intervals.
-// setInterval, setTime, timeInterval, intervalStart
-
-// 
-
+var quizMaterial = [
+    ["__________ is used by programmers across the world to create dynamic and interactive web content like applications and browsers.",
+        ["JavaScript", "JavaMocha", "FunctionScript", "DuckRace"]],
+    ["The __________ method calls a function at specified intervals.",
+        ["setTime", "timeInterval", "setInterval", "intervalStart"]]
+]
 
 var countdownEl = document.getElementById("countdown");
-
 var secondsLeft = 11;
 
+var startBtn = document.querySelector(".startbtn");
+startBtn.addEventListener("click", timeDown);
+
 function timeDown() {
+    // These 2 lines remove the welcome message
+    var welcome = document.getElementById("welcomePara");
+    welcome.remove();
     // These 2 lines remove the start button
     var startElem = document.getElementById("startEl");
     startElem.remove();
@@ -45,14 +54,35 @@ function timeDown() {
             clearInterval(countdownTimer);
             countdownEl.textContent = "";
             secondsLeft = 11;
-            // need function to make high score box entry appear and play again button.
+            // !!! need function to make high score box entry appear and play again button.
         }
     }, 1000)
+
+    showQuestions();
+};
+
+var questionElem = document.getElementById("questionEl");
+
+// will need to make a way to loop through questions when a answer is selected. 
+function showQuestions() {
+    questionElem.textContent = quizMaterial[0][0];
+    for (i = 0; i < quizMaterial.length; i++) {
+        if (i <= quizMaterial.length) {
+            var answers = document.createElement("button");
+            answers.textContent = quizMaterial[0][1][i];
+            console.log(answers);
+            document.body.main.appendChild(answers);
+        }
+    }
 }
 
-var startBtn = document.querySelector(".startbtn");
+// var tag = document.createElement(tagName);
 
-startBtn.addEventListener("click", timeDown);
+//   // Adds text content to created tag
+//   tag.textContent = "This was made via prompts. It's a " + tagName + ".";
+  
+//   // Appends tag as child of document body
+//   document.body.appendChild(tag);
 
 // i want to make a play again button appear
 
