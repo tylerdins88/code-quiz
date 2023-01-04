@@ -10,16 +10,19 @@
 
 <body>
     <main class="questionbox">
-        <h1 class="welcomequestion">Coding Quiz Challenge</h1>
-        <p class="questionanswers">This is a game meant to test your coding knowledge</p>
-        <button class="startbtn">I'm up to the Challenge!</button>
+        <h1 class="welcomequestion" id="questionEl">Coding Quiz Challenge</h1>
+        <p class="questionanswers" id="answerEl">This is a short quiz meant to test your JavaScript knowledge.
+            Choose the correct answer for each question. If you choose the wrong answer the timer
+            loses 10 seconds. <br> Your scored is based on the remaining time!
+        </p>
+        <button class="startbtn" id="startEl">I'm up to the Challenge!</button>
     </main>
-    <section class="timer">
+    <section class=" timer">
         <h2 id="countdown"></h2>
     </section>
     <section class="highscores">
         <h3>High Scores</h3>
         <button class="clearscoresbtn">Clear Scores</button>
     </section>
-    <script src="./assets/script.js"></script>
+    <script src=" ./assets/script.js"></script>
 </body>

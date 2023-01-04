@@ -1,16 +1,4 @@
-// GIVEN I am taking a code quiz
-// WHEN I click the start button
-// THEN a timer starts and I am presented with a question
-// WHEN I answer a question
-// THEN I am presented with another question
-// WHEN I answer a question incorrectly
-// THEN time is subtracted from the clock
-// WHEN all questions are answered or the timer reaches 0
-// THEN the game is over
-// WHEN the game is over
-// THEN I can save my initials and my score
 
-// the page loads to a welcome message and a start button 
 // the start button starts a countdown timer, has a question appear, answer choices appear
 // the user chooses selects a answer.
 // is then told, correct or wrong.
@@ -25,17 +13,39 @@
 // need a button to clear high scores 
 // have scoreboard shown on page
 
+// QUESTIONS 
+// use a 2 arrays inside of an array
+// array[0] is the question
+// array[1] is the answer choices
+// append [0] to the id=questionEl
+// append [1] to the id=answerEl
+// _________ is used by programmers across the world to create dynamic and interactive web content like applications and browsers.
+// JavaScript, JavaMocha, FunctionScript, DuckRace
+
+// The _________ method calls a function at specified intervals.
+// setInterval, setTime, timeInterval, intervalStart
+
+// 
+
+
 var countdownEl = document.getElementById("countdown");
 
-var secondsLeft = 76;
+var secondsLeft = 11;
 
 function timeDown() {
+    // These 2 lines remove the start button
+    var startElem = document.getElementById("startEl");
+    startElem.remove();
+    // This is the timer that counts down
     var countdownTimer = setInterval(function () {
         secondsLeft--;
         countdownEl.textContent = secondsLeft + " Seconds Left!";
-
+        // If the timer hits 0, the game ends 
         if (secondsLeft === 0) {
             clearInterval(countdownTimer);
+            countdownEl.textContent = "";
+            secondsLeft = 11;
+            // need function to make high score box entry appear and play again button.
         }
     }, 1000)
 }
@@ -43,3 +53,10 @@ function timeDown() {
 var startBtn = document.querySelector(".startbtn");
 
 startBtn.addEventListener("click", timeDown);
+
+// i want to make a play again button appear
+
+// i want to make the button appear where the time was
+
+// i want the button to restart the game
+
