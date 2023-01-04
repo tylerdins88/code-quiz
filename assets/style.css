@@ -42,7 +42,8 @@ body {
 }
 
 .startbtn,
-.clearscoresbtn {
+.clearscoresbtn,
+.answerChoices {
     background-color: darkcyan;
     color: white;
     padding: 6px;

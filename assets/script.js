@@ -66,23 +66,16 @@ var questionElem = document.getElementById("questionEl");
 // will need to make a way to loop through questions when a answer is selected. 
 function showQuestions() {
     questionElem.textContent = quizMaterial[0][0];
-    for (i = 0; i < quizMaterial.length; i++) {
-        if (i <= quizMaterial.length) {
+    for (i = 0; i < quizMaterial[0][1].length; i++) {
+        if (i <= quizMaterial[0][1].length) {
             var answers = document.createElement("button");
             answers.textContent = quizMaterial[0][1][i];
-            console.log(answers);
-            document.body.main.appendChild(answers);
+            answers.className = "answerChoices";
+            answers.setAttribute("style", "font-size: 20px")
+            document.getElementById("display").appendChild(answers);
         }
     }
-}
-
-// var tag = document.createElement(tagName);
-
-//   // Adds text content to created tag
-//   tag.textContent = "This was made via prompts. It's a " + tagName + ".";
-  
-//   // Appends tag as child of document body
-//   document.body.appendChild(tag);
+};
 
 // i want to make a play again button appear
 
