@@ -1,0 +1,67 @@
+/* 
+=== high score box 
+=== welcome statement
+=== start button -> makes question appear
+    -> makes choices appear (buttons?)
+    -> starts a timer that counts down
+when game ends, space to enter players name
+option to clear high scores
+option to play again
+ */
+* {
+    padding: 0px;
+    margin: 0px;
+}
+
+body {
+    background-color: #F3743F;
+}
+
+.questionbox {
+    background-color: #D8F135;
+    border: 10px solid darkmagenta;
+    border-radius: 20px;
+    text-align: center;
+    width: 600px;
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.welcomequestion {
+    padding: 20px;
+}
+
+.questionanswers {
+    padding: 15px;
+}
+
+.timer {
+    text-align: center;
+    padding: 20px;
+}
+
+.startbtn {
+    background-color: darkcyan;
+    color: white;
+    padding: 6px;
+    margin: 10px;
+}
+
+.highscores {
+    background-color: #D8F135;
+    border: 4px solid darkmagenta;
+    border-radius: 20px;
+    text-align: center;
+    width: 300px;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.clearscores {
+    background-color: darkcyan;
+    color: white;
+    padding: 6px;
+    margin: 10px;
+}
