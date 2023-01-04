@@ -25,3 +25,21 @@
 // need a button to clear high scores 
 // have scoreboard shown on page
 
+var countdownEl = document.getElementById("countdown");
+
+var secondsLeft = 76;
+
+function timeDown() {
+    var countdownTimer = setInterval(function () {
+        secondsLeft--;
+        countdownEl.textContent = secondsLeft + " Seconds Left!";
+
+        if (secondsLeft === 0) {
+            clearInterval(countdownTimer);
+        }
+    }, 1000)
+}
+
+var startBtn = document.querySelector(".startbtn");
+
+startBtn.addEventListener("click", timeDown);
