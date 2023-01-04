@@ -52,9 +52,10 @@ function timeDown() {
         // If the timer hits 0, the game ends 
         if (secondsLeft === 0) {
             clearInterval(countdownTimer);
-            countdownEl.textContent = "";
+            countdownEl.textContent = "Time is Out. Game Over!";
             secondsLeft = 11;
             // !!! need function to make high score box entry appear and play again button.
+            playAgain();
         }
     }, 1000)
 
@@ -77,6 +78,12 @@ function showQuestions() {
     }
 };
 
+function playAgain() {
+    var playBtn = document.createElement("button");
+    playBtn.textContent = "Play Again?"
+    playBtn.className = "playAgain";
+    document.getElementById("startAgain").appendChild(playBtn);
+}
 // i want to make a play again button appear
 
 // i want to make the button appear where the time was
