@@ -25,12 +25,6 @@
 // append [1] to the id=answerEl
 // this is a function that is called up when time down starts
 
-var quizMaterial = [
-    ["__________ is used by programmers across the world to create dynamic and interactive web content like applications and browsers.",
-        ["JavaScript", "JavaMocha", "FunctionScript", "DuckRace"]],
-    ["The __________ method calls a function at specified intervals.",
-        ["setTime", "timeInterval", "setInterval", "intervalStart"]]
-]
 
 var countdownEl = document.getElementById("countdown");
 var secondsLeft = 11;
@@ -56,6 +50,8 @@ function timeDown() {
             secondsLeft = 11;
             // !!! need function to make high score box entry appear and play again button.
             playAgain();
+            recordScore();
+            document.getElementById("wordbox").remove();
         }
     }, 1000)
 
@@ -64,6 +60,14 @@ function timeDown() {
 
 var questionElem = document.getElementById("questionEl");
 
+var quizMaterial = [
+    ["__________ is used by programmers across the world to create dynamic and interactive web content like applications and browsers.",
+        ["JavaScript", "JavaMocha", "FunctionScript", "DuckRace"],
+        ["JavaScript"]],
+    ["The __________ method calls a function at specified intervals.",
+        ["setTime", "timeInterval", "setInterval", "intervalStart"],
+        ["setInterval"]]
+]
 // will need to make a way to loop through questions when a answer is selected. 
 function showQuestions() {
     questionElem.textContent = quizMaterial[0][0];
@@ -73,7 +77,7 @@ function showQuestions() {
             answers.textContent = quizMaterial[0][1][i];
             answers.className = "answerChoices";
             answers.setAttribute("style", "font-size: 20px")
-            document.getElementById("display").appendChild(answers);
+            document.getElementById("wordbox").appendChild(answers);
         }
     }
 };
@@ -84,6 +88,16 @@ function playAgain() {
     playBtn.className = "playAgain";
     document.getElementById("startAgain").appendChild(playBtn);
 }
+
+function recordScore() {
+    var enterName = document.createElement("input");
+    enterName.textContent = "Enter Name: "
+    document.getElementById("startAgain").appendChild(enterName);
+}
+
+
+
+
 // i want to make a play again button appear
 
 // i want to make the button appear where the time was
