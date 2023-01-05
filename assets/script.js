@@ -56,8 +56,9 @@ var countdownEl = document.getElementById("countdown");
 var answerElem = document.getElementById("answerEl");
 var questionElem = document.getElementById("questionEl");
 var answerBtn = document.querySelectorAll(".answerChoices");
+var playAgainBtn = document.createElement("button");
 console.log(answerBtn);
-var secondsLeft = 10;
+var secondsLeft = 90;
 
 var startBtn = document.querySelector(".startbtn");
 startBtn.addEventListener("click", timeDown);
@@ -66,7 +67,7 @@ function timeDown() {
     startElem.style.display = "none";
     answerElem.textContent = "";
     countdownEl.textContent = "90 Seconds Left!"
-    playBtn.remove();
+    playAgainBtn.remove();
 
     // This is the timer that counts down
     var countdownTimer = setInterval(function () {
@@ -75,28 +76,45 @@ function timeDown() {
         // If the timer hits 0, the game ends 
         if (secondsLeft === 0) {
             clearInterval(countdownTimer);
+            questionElem.textContent = "";
+            answerbox.textContent = "";
             countdownEl.textContent = "Time is Out. Game Over!";
-            secondsLeft = 10;
+            secondsLeft = 90;
             // !!! need function to make high score box entry appear and play again button.
             playAgain();
-            questionElem.textContent = "";
-            answerBtn.style.display = "none";
         }
     }, 1000)
 
-    showQuestions();
-};
-
-var playBtn = document.createElement("button");
-playBtn.addEventListener("click", timeDown);
-
-function playAgain() {
-    question.className = "questionPrompt"
-    playBtn.textContent = "Play Again?"
-    playBtn.className = "playAgain";
-    document.getElementById("startAgain").appendChild(playBtn);
+    showQuestions(quizMaterial[0]); // why did i put this [0] here to make this work?
 }
 
+function playAgain() {
+    playAgainBtn.textContent = "Play Again?"
+    playAgainBtn.className = "playAgain";
+    document.getElementById("startAgain").appendChild(playAgainBtn);
+    playAgainBtn.addEventListener("click", timeDown);
+}
+
+function showQuestions(quizMaterial) {
+    questionElem.textContent = quizMaterial.question;
+
+    for (i = 0; i < quizMaterial.choices.length; i++) {
+        if (i <= quizMaterial.choices.length) {
+            var answers = document.createElement("button");
+            answers.textContent = quizMaterial.choices[i];
+            answers.className = "answerChoices " + "answerNum" + [i];
+            answers.setAttribute("id", [i]);
+            answers.setAttribute("style", "font-size: 20px")
+            document.getElementById("answerbox").appendChild(answers);
+            for (i = 0; i < 4; i++) {
+
+            }
+        }
+    }
+    function answerCheck() {
+        console.log("Hello");
+    }
+}
 // *** need this function to store a name input & score from timer to local storage
 // function recordScore() {
 //     var enterName = document.createElement("input");
@@ -105,22 +123,4 @@ function playAgain() {
 
 // ADD AND REMOVE CLASSES TO HIDE THINGS
 
-
-// // will need to make a way to loop through questions when a answer is selected. 
-// var question = document.createElement("h2");
-// function showQuestions() {
-
-//     questionElem.textContent = quizMaterial[0][0];
-
-//     for (i = 0; i < quizMaterial[0][1].length; i++) {
-//         if (i <= quizMaterial[0][1].length) {
-//             var answers = document.createElement("button");
-//             answers.textContent = quizMaterial[0][1][i];
-//             answers.className = "answerChoices";
-//             answers.setAttribute("id", [i]);
-//             answers.setAttribute("style", "font-size: 20px")
-//             document.getElementById("wordbox").appendChild(answers);
-//         }
-//     }
-// };
 
