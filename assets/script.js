@@ -1,8 +1,3 @@
-// _________ is used by programmers across the world to create dynamic and interactive web content like applications and browsers.
-// JavaScript, JavaMocha, FunctionScript, DuckRace
-// The _________ method calls a function at specified intervals.
-// setInterval, setTime, timeInterval, intervalStart
-
 // the start button starts a countdown timer, has a question appear, answer choices appear
 // the user chooses selects a answer.
 // is then told, correct or wrong.
@@ -17,36 +12,60 @@
 // need a button to clear high scores 
 // have scoreboard shown on page
 
-// QUESTIONS 
-// use a 2 arrays inside of an array
-// array[0] is the question
-// array[1] is the answer choices
-// append [0] to the id=questionEl
-// append [1] to the id=answerEl
-// this is a function that is called up when time down starts
+var quizMaterial = [
+    {
+        questionNum: 0,
+        question: "__________ is used by programmers across the world to create dynamic and interactive web content like applications and browsers.",
+        choices: ["JavaScript", "JavaMocha", "FunctionScript", "DuckRace"],
+        answer: "JavaScript"
+    },
+    {
+        questionNum: 1,
+        question: "The __________ method calls a function at specified intervals.",
+        chocies: ["setTime", "timeInterval", "setInterval", "intervalStart"],
+        answer: "setInterval"
+    },
+    {
+        questionNum: 2,
+        question: "What property allows sites to save key-value pairs in a web browser with no expiration date?",
+        choices: ["Cloud Storage", "Local Storage", "MySpace", "Web Browser Storage"],
+        answer: "Local Storage"
+    },
+    {
+        questionNum: 3,
+        question: " __________ is a social media platform used to cooperatively work on web development.",
+        choices: ["GitDev", "WebDev.1", "MarkCarl", "Github"],
+        answer: "Github"
+    },
+    {
+        questionNum: 4,
+        question: " __________ is used to attach an element to another element.",
+        choices: [".addElem", ".elementAdd", ".appendChild", ".appendElem"],
+        answer: ".appendChild"
+    },
+    {
+        questionNum: 5,
+        question: "The __________ property sets or returns the text content of the specified node, and all its descendants.",
+        chocies: [".textSet", ".settingText", ".textContent", ".containText"],
+        answer: ".textContent"
+    }
+];
 
-
+var startElem = document.getElementById("startEl");
 var countdownEl = document.getElementById("countdown");
-var secondsLeft = 91;
+var answerElem = document.getElementById("answerEl");
+var questionElem = document.getElementById("questionEl");
+var answerBtn = document.querySelectorAll(".answerChoices");
+console.log(answerBtn);
+var secondsLeft = 10;
 
 var startBtn = document.querySelector(".startbtn");
 startBtn.addEventListener("click", timeDown);
 
 function timeDown() {
-    // These 2 lines remove the welcome message
-    var welcome = document.getElementById("answerEl");
-    if (welcome) {
-        welcome.textContent = "";
-    }
-    // These 2 lines remove the start button
-    var startElem = document.getElementById("startEl");
-    if (startElem) {
-        startElem.remove();
-    }
-    var questionElem = document.getElementById("questionEl");
-    if (questionElem) {
-        questionElem.textContent = "";
-    }
+    startElem.style.display = "none";
+    answerElem.textContent = "";
+    countdownEl.textContent = "90 Seconds Left!"
     playBtn.remove();
 
     // This is the timer that counts down
@@ -57,52 +76,16 @@ function timeDown() {
         if (secondsLeft === 0) {
             clearInterval(countdownTimer);
             countdownEl.textContent = "Time is Out. Game Over!";
-            secondsLeft = 91;
+            secondsLeft = 10;
             // !!! need function to make high score box entry appear and play again button.
             playAgain();
-            document.getElementById("wordbox").textContent = "";
+            questionElem.textContent = "";
+            answerBtn.style.display = "none";
         }
     }, 1000)
 
     showQuestions();
 };
-
-
-var quizMaterial = [
-    ["__________ is used by programmers across the world to create dynamic and interactive web content like applications and browsers.",
-        ["JavaScript", "JavaMocha", "FunctionScript", "DuckRace"],
-        [0]],
-    ["The __________ method calls a function at specified intervals.",
-        ["setTime", "timeInterval", "setInterval", "intervalStart"],
-        [2]],
-    ["What property allows sites to save key-value pairs in a web browser with no expiration date?",
-        ["Cloud Storage", "Local Storage", "MySpace", "Web Browser Storage"],
-        [1]]
-]
-// will need to make a way to loop through questions when a answer is selected. 
-var question = document.createElement("h2");
-function showQuestions() {
-
-    question.textContent = quizMaterial[0][0]
-    document.getElementById("wordbox").appendChild(question);
-
-    for (i = 0; i < quizMaterial[0][1].length; i++) {
-        if (i <= quizMaterial[0][1].length) {
-            var answers = document.createElement("button");
-            answers.textContent = quizMaterial[0][1][i];
-            answers.className = "answerChoices";
-            answers.setAttribute("id", [i]);
-            answers.setAttribute("style", "font-size: 20px")
-            document.getElementById("wordbox").appendChild(answers);
-        }
-    }
-    var answerBtn = document.querySelectorAll(".answerChoices");
-    answerBtn.addEventListener("click", answerCheck)
-};
-
-function answerCheck() {
-    console.log("Hello");
-}
 
 var playBtn = document.createElement("button");
 playBtn.addEventListener("click", timeDown);
@@ -115,9 +98,29 @@ function playAgain() {
 }
 
 // *** need this function to store a name input & score from timer to local storage
-function recordScore() {
-    var enterName = document.createElement("input");
-    document.getElementById("startAgain").appendChild(enterName);
-}
+// function recordScore() {
+//     var enterName = document.createElement("input");
+//     document.getElementById("startAgain").appendChild(enterName);
+// }
 
 // ADD AND REMOVE CLASSES TO HIDE THINGS
+
+
+// // will need to make a way to loop through questions when a answer is selected. 
+// var question = document.createElement("h2");
+// function showQuestions() {
+
+//     questionElem.textContent = quizMaterial[0][0];
+
+//     for (i = 0; i < quizMaterial[0][1].length; i++) {
+//         if (i <= quizMaterial[0][1].length) {
+//             var answers = document.createElement("button");
+//             answers.textContent = quizMaterial[0][1][i];
+//             answers.className = "answerChoices";
+//             answers.setAttribute("id", [i]);
+//             answers.setAttribute("style", "font-size: 20px")
+//             document.getElementById("wordbox").appendChild(answers);
+//         }
+//     }
+// };
+
