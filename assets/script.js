@@ -14,37 +14,31 @@
 
 var quizMaterial = [
     {
-        questionNum: 0,
         question: "__________ is used by programmers across the world to create dynamic and interactive web content like applications and browsers.",
         choices: ["JavaScript", "JavaMocha", "FunctionScript", "DuckRace"],
         answer: "JavaScript"
     },
     {
-        questionNum: 1,
         question: "The __________ method calls a function at specified intervals.",
         chocies: ["setTime", "timeInterval", "setInterval", "intervalStart"],
         answer: "setInterval"
     },
     {
-        questionNum: 2,
         question: "What property allows sites to save key-value pairs in a web browser with no expiration date?",
         choices: ["Cloud Storage", "Local Storage", "MySpace", "Web Browser Storage"],
         answer: "Local Storage"
     },
     {
-        questionNum: 3,
         question: " __________ is a social media platform used to cooperatively work on web development.",
         choices: ["GitDev", "WebDev.1", "MarkCarl", "Github"],
         answer: "Github"
     },
     {
-        questionNum: 4,
         question: " __________ is used to attach an element to another element.",
         choices: [".addElem", ".elementAdd", ".appendChild", ".appendElem"],
         answer: ".appendChild"
     },
     {
-        questionNum: 5,
         question: "The __________ property sets or returns the text content of the specified node, and all its descendants.",
         chocies: [".textSet", ".settingText", ".textContent", ".containText"],
         answer: ".textContent"
@@ -55,9 +49,9 @@ var startElem = document.getElementById("startEl");
 var countdownEl = document.getElementById("countdown");
 var answerElem = document.getElementById("answerEl");
 var questionElem = document.getElementById("questionEl");
-var answerBtn = document.querySelectorAll(".answerChoices");
+var answerBtn = document.querySelector("#answerbox");
 var playAgainBtn = document.createElement("button");
-console.log(answerBtn);
+var questionNumber = 0;
 var secondsLeft = 90;
 
 var startBtn = document.querySelector(".startbtn");
@@ -74,18 +68,19 @@ function timeDown() {
         secondsLeft--;
         countdownEl.textContent = secondsLeft + " Seconds Left!";
         // If the timer hits 0, the game ends 
-        if (secondsLeft === 0) {
+        if (secondsLeft <= 0) {
             clearInterval(countdownTimer);
             questionElem.textContent = "";
             answerbox.textContent = "";
             countdownEl.textContent = "Time is Out. Game Over!";
             secondsLeft = 90;
+            questionNumber = 0;
             // !!! need function to make high score box entry appear and play again button.
             playAgain();
         }
     }, 1000)
 
-    showQuestions(quizMaterial[0]); // why did i put this [0] here to make this work?
+    showQuestions(quizMaterial[questionNumber]);
 }
 
 function playAgain() {
@@ -102,18 +97,21 @@ function showQuestions(quizMaterial) {
         if (i <= quizMaterial.choices.length) {
             var answers = document.createElement("button");
             answers.textContent = quizMaterial.choices[i];
-            answers.className = "answerChoices " + "answerNum" + [i];
-            answers.setAttribute("id", [i]);
+            answers.className = "answerChoices";
             answers.setAttribute("style", "font-size: 20px")
             document.getElementById("answerbox").appendChild(answers);
-            for (i = 0; i < 4; i++) {
-
-            }
+            answerBtn.addEventListener("click", function (event) {
+                if (event.target.textContent === quizMaterial.answer) {
+                    console.log("Correct")
+                    showQuestions(quizMaterial[questionNumber])
+                } else {
+                    console.log("Wrong")
+                    secondsLeft -= 2.5
+                }
+            })
         }
     }
-    function answerCheck() {
-        console.log("Hello");
-    }
+    questionNumber++
 }
 // *** need this function to store a name input & score from timer to local storage
 // function recordScore() {
