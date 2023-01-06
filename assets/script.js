@@ -1,4 +1,4 @@
-// the start button starts a countdown timer, has a question appear, answer choices appear
+
 // the user chooses selects a answer.
 // is then told, correct or wrong.
 // if question is answered wrong, then extra seconds are subtracted from timer 
@@ -101,25 +101,26 @@ function playAgain() {
     playAgainBtn.addEventListener("click", timeDown);
 }
 
-function showQuestions(quizTime) {
-    questionElem.textContent = quizTime.question;
+function showQuestions(quizMaterial) {
+    questionElem.textContent = quizMaterial.question;
 
-    for (i = 0; i < quizTime.choices.length; i++) {
-        if (i <= quizTime.choices.length) {
+    for (i = 0; i < quizMaterial.choices.length; i++) {
+        if (i <= quizMaterial.choices.length) {
             var answers = document.createElement("button");
-            answers.textContent = quizTime.choices[i];
+            answers.textContent = quizMaterial.choices[i];
             answers.className = "answerChoices";
-            answers.setAttribute("id", [i])
             answers.setAttribute("style", "font-size: 20px")
             document.getElementById("answerbox").appendChild(answers);
-            answerBtn.addEventListener("click", answerCheck)
-
+            var answerChoicesEl = document.querySelectorAll(".answerChoices")
+            for (j = 0; j < answerChoicesEl.length; j++) {
+                answerChoicesEl[i].addEventListener("click", answerCheck)
+            }
             function answerCheck(event) {
-                if (event.target.textContent === quizTime.answer) {
-                    console.log("Correct")
+                if (event.target.textContent === quizMaterial.answer) {
+                    countdownEl.prepend("Correct! ")
                     showQuestions(quizMaterial[questionNumber])
                 } else {
-                    console.log("Wrong")
+                    countdownEl.prepend("Wrong! ")
                     secondsLeft -= 10
                 }
             }
