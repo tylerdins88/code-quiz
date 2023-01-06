@@ -1,10 +1,5 @@
-
-// the user chooses selects a answer.
-// is then told, correct or wrong.
-// if question is answered wrong, then extra seconds are subtracted from timer 
 // upon selection a new question needs to appear with new answers 
 // after so many questions, the game ends
-// if the timer hits 0, the player loses
 // if the game ends before the timer hits 0, i need to record a score
 // if a score is recorded, i need a spot for user to enter name 
 // then i need a high score box to display names and scores(local storage) 
@@ -101,22 +96,20 @@ function playAgain() {
     playAgainBtn.addEventListener("click", timeDown);
 }
 
-function showQuestions(quizMaterial) {
-    questionElem.textContent = quizMaterial.question;
+function showQuestions(quizTime) {
+    questionElem.textContent = quizTime.question;
 
-    for (i = 0; i < quizMaterial.choices.length; i++) {
-        if (i <= quizMaterial.choices.length) {
+    for (i = 0; i < quizTime.choices.length; i++) {
+        if (i <= quizTime.choices.length) {
             var answers = document.createElement("button");
-            answers.textContent = quizMaterial.choices[i];
+            answers.textContent = quizTime.choices[i];
             answers.className = "answerChoices";
             answers.setAttribute("style", "font-size: 20px")
             document.getElementById("answerbox").appendChild(answers);
             var answerChoicesEl = document.querySelectorAll(".answerChoices")
-            for (j = 0; j < answerChoicesEl.length; j++) {
-                answerChoicesEl[i].addEventListener("click", answerCheck)
-            }
+            answerChoicesEl[i].addEventListener("click", answerCheck)
             function answerCheck(event) {
-                if (event.target.textContent === quizMaterial.answer) {
+                if (event.target.textContent === quizTime.answer) {
                     countdownEl.prepend("Correct! ")
                     showQuestions(quizMaterial[questionNumber])
                 } else {
