@@ -49,12 +49,19 @@ body {
 .startbtn,
 .clearscoresbtn,
 .answerChoices,
-.playAgain {
+.playAgain,
+.resetgamebtn {
     background-color: darkcyan;
     color: white;
     padding: 6px;
     margin: 10px;
     cursor: pointer;
+}
+
+.clearreset {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .highscores {

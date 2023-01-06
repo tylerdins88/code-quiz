@@ -14,31 +14,37 @@
 
 var quizMaterial = [
     {
+        questionNum: 0,
         question: "__________ is used by programmers across the world to create dynamic and interactive web content like applications and browsers.",
         choices: ["JavaScript", "JavaMocha", "FunctionScript", "DuckRace"],
         answer: "JavaScript"
     },
     {
+        questionNum: 1,
         question: "The __________ method calls a function at specified intervals.",
         chocies: ["setTime", "timeInterval", "setInterval", "intervalStart"],
         answer: "setInterval"
     },
     {
+        questionNum: 2,
         question: "What property allows sites to save key-value pairs in a web browser with no expiration date?",
         choices: ["Cloud Storage", "Local Storage", "MySpace", "Web Browser Storage"],
         answer: "Local Storage"
     },
     {
+        questionNum: 3,
         question: " __________ is a social media platform used to cooperatively work on web development.",
         choices: ["GitDev", "WebDev.1", "MarkCarl", "Github"],
         answer: "Github"
     },
     {
+        questionNum: 4,
         question: " __________ is used to attach an element to another element.",
         choices: [".addElem", ".elementAdd", ".appendChild", ".appendElem"],
         answer: ".appendChild"
     },
     {
+        questionNum: 5,
         question: "The __________ property sets or returns the text content of the specified node, and all its descendants.",
         chocies: [".textSet", ".settingText", ".textContent", ".containText"],
         answer: ".textContent"
@@ -56,6 +62,11 @@ var secondsLeft = 90;
 
 var startBtn = document.querySelector(".startbtn");
 startBtn.addEventListener("click", timeDown);
+
+var resetBtn = document.querySelector(".resetgamebtn");
+resetBtn.addEventListener("click", function () {
+    window.location.reload();
+})
 
 function timeDown() {
     startElem.style.display = "none";
@@ -90,28 +101,32 @@ function playAgain() {
     playAgainBtn.addEventListener("click", timeDown);
 }
 
-function showQuestions(quizMaterial) {
-    questionElem.textContent = quizMaterial.question;
+function showQuestions(quizTime) {
+    questionElem.textContent = quizTime.question;
 
-    for (i = 0; i < quizMaterial.choices.length; i++) {
-        if (i <= quizMaterial.choices.length) {
+    for (i = 0; i < quizTime.choices.length; i++) {
+        if (i <= quizTime.choices.length) {
             var answers = document.createElement("button");
-            answers.textContent = quizMaterial.choices[i];
+            answers.textContent = quizTime.choices[i];
             answers.className = "answerChoices";
+            answers.setAttribute("id", [i])
             answers.setAttribute("style", "font-size: 20px")
             document.getElementById("answerbox").appendChild(answers);
-            answerBtn.addEventListener("click", function (event) {
-                if (event.target.textContent === quizMaterial.answer) {
+            answerBtn.addEventListener("click", answerCheck)
+
+            function answerCheck(event) {
+                if (event.target.textContent === quizTime.answer) {
                     console.log("Correct")
                     showQuestions(quizMaterial[questionNumber])
                 } else {
                     console.log("Wrong")
-                    secondsLeft -= 2.5
+                    secondsLeft -= 10
                 }
-            })
+            }
         }
     }
     questionNumber++
+    console.log(questionNumber)
 }
 // *** need this function to store a name input & score from timer to local storage
 // function recordScore() {
