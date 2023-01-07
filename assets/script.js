@@ -30,13 +30,23 @@ var quizMaterial = [
     },
     {
         question: " __________ is used to attach an element to another element.",
-        choices: [".addElem", ".elementAdd", ".appendChild", ".appendElem"],
+        choices: [".appendChild", ".addElem", ".elementAdd", ".appendElem"],
         answer: ".appendChild"
     },
     {
         question: "The __________ property sets or returns the text content of the specified node, and all its descendants.",
         choices: [".textSet", ".settingText", ".textContent", ".containText"],
         answer: ".textContent"
+    },
+    {
+        question: " __________ is a language independent text format for storing and transporting data.",
+        choices: ["LITF", "JSON", "dataStore", "LANG"],
+        answer: "JSON"
+    },
+    {
+        question: "JavaScript uses __________ to execture a block of code a number of times.",
+        choices: ["fruit", "loops", "are", "great"],
+        answer: "loops"
     }
 ];
 
@@ -108,7 +118,7 @@ function showQuestions(quizTime) {
                 if (event.target.textContent === quizTime.answer) {
                     answerbox.textContent = "";
                     countdownEl.prepend("Correct! ")
-                    if (questionNumber === 6) {
+                    if (questionNumber === 8) {
                         questionElem.textContent = "Your score is " + secondsLeft + " points! Nice work!";
                         countdownEl.textContent = "You Won! Enter your name to record your score."
                         startAgain.appendChild(enterName);
@@ -151,26 +161,25 @@ function recordStats() {
         enterName.value = "";
     }
     playerScore = secondsLeft;
-    console.log(playerName);
-    console.log(playerScore);
+    var userInfo = {
+        userName: playerName,
+        userScore: playerScore
+    }
+    console.log(userInfo)
 
-    // need to store as an object, set item nicely, keep when page resets, add multiple scores. 
-
-    localStorage.setItem("playerName", playerName);
-    localStorage.setItem("playerScore", playerScore);
+    localStorage.setItem("userInfo", JSON.stringify(userInfo));
+    highScoreList();
 
     function highScoreList() {
-        var nameList = localStorage.getItem("playerName");
-        userStats.append(nameList);
-        var scoreList = localStorage.getItem("playerScore");
-        userStats.append(scoreList);
-
+        var lastScore = JSON.parse(localStorage.getItem("userInfo"));
+        if (userInfo !== null) {
+            userStats.append("Name: " + lastScore.userName + ": Score: " + lastScore.userScore);
+        }
     }
-    highScoreList();
 }
 
+
 var clearscores = document.getElementById("clearscores");
-console.log(clearscores);
 clearscores.addEventListener("click", function () {
     localStorage.clear();
     userStats.innerHTML = "<h3>High Scores</h3>";
