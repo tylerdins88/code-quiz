@@ -46,15 +46,9 @@ var answerElem = document.getElementById("answerEl");
 var questionElem = document.getElementById("questionEl");
 var playAgainBtn = document.createElement("button");
 var startAgain = document.getElementById("startAgain");
-var enterName = document.createElement("input");
-enterName.setAttribute("id", "nameBox");
-enterName.setAttribute("type", "text");
-enterName.setAttribute("class", "nameStyle")
-
 var questionNumber = 0;
 var secondsLeft = 90;
 var countdownTimer;
-
 
 var startBtn = document.querySelector(".startbtn");
 startBtn.addEventListener("click", timeDown);
@@ -71,6 +65,7 @@ function timeDown() {
     playAgainBtn.remove();
     enterName.remove();
     submitBtn.remove();
+    secondsLeft = 90;
 
     // This is the timer that counts down
     countdownTimer = setInterval(function () {
@@ -90,7 +85,6 @@ function timeDown() {
 }
 
 function playAgain() {
-    secondsLeft = 90;
     questionNumber = 0;
     playAgainBtn.textContent = "Play Again?"
     playAgainBtn.className = "playAgain";
@@ -116,9 +110,9 @@ function showQuestions(quizTime) {
                     countdownEl.prepend("Correct! ")
                     if (questionNumber === 6) {
                         questionElem.textContent = "Your score is " + secondsLeft + " points! Nice work!";
-                        console.log(secondsLeft)
                         countdownEl.textContent = "You Won! Enter your name to record your score."
-                        recordScore();
+                        startAgain.appendChild(enterName);
+                        startAgain.appendChild(submitBtn);
                         playAgain();
                         clearInterval(countdownTimer);
                     } else {
@@ -135,26 +129,49 @@ function showQuestions(quizTime) {
     console.log(questionNumber)
 }
 
+var playerName;
+var playerScore;
 var submitBtn = document.createElement("input");
 submitBtn.setAttribute("class", "submitBtn");
 submitBtn.setAttribute("type", "submit");
 submitBtn.setAttribute("value", "Submit");
+submitBtn.addEventListener("click", recordStats)
+var enterName = document.createElement("input");
+enterName.setAttribute("id", "nameBox");
+enterName.setAttribute("type", "text");
+enterName.setAttribute("class", "nameStyle")
+var userStats = document.getElementById("userStats")
 
 // *** need this function to store a name input & score from timer to local storage
-function recordScore() {
-    startAgain.appendChild(enterName);
-    startAgain.appendChild(submitBtn);
-    var playerName = document.getElementById("nameBox");
-    var playerScore = secondsLeft;
+function recordStats() {
+    if (!enterName.value) {
+        return;
+    } else {
+        playerName = enterName.value
+        enterName.value = "";
+    }
+    playerScore = secondsLeft;
     console.log(playerName);
     console.log(playerScore);
+
+    // need to store as an object, set item nicely, keep when page resets, add multiple scores. 
+
+    localStorage.setItem("playerName", playerName);
+    localStorage.setItem("playerScore", playerScore);
+
+    function highScoreList() {
+        var nameList = localStorage.getItem("playerName");
+        userStats.append(nameList);
+        var scoreList = localStorage.getItem("playerScore");
+        userStats.append(scoreList);
+
+    }
+    highScoreList();
 }
 
-submitBtn.addEventListener("submit", recordName)
-
-function recordName() {
-    console.log(enterName.val())
-}
-
-
-
+var clearscores = document.getElementById("clearscores");
+console.log(clearscores);
+clearscores.addEventListener("click", function () {
+    localStorage.clear();
+    userStats.innerHTML = "<h3>High Scores</h3>";
+});
