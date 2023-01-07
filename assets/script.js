@@ -57,7 +57,7 @@ var questionElem = document.getElementById("questionEl");
 var playAgainBtn = document.createElement("button");
 var startAgain = document.getElementById("startAgain");
 var questionNumber = 0;
-var secondsLeft = 90;
+var secondsLeft = 60;
 var countdownTimer;
 
 var startBtn = document.querySelector(".startbtn");
@@ -71,11 +71,11 @@ resetBtn.addEventListener("click", function () {
 function timeDown() {
     startElem.style.display = "none";
     answerElem.textContent = "";
-    countdownEl.textContent = "90 Seconds Left!"
+    countdownEl.textContent = "60 Seconds Left!"
     playAgainBtn.remove();
     enterName.remove();
     submitBtn.remove();
-    secondsLeft = 90;
+    secondsLeft = 60;
 
     // This is the timer that counts down
     countdownTimer = setInterval(function () {
@@ -87,7 +87,7 @@ function timeDown() {
             questionElem.textContent = "";
             answerbox.textContent = "";
             countdownEl.textContent = "Time is Out. Game Over!";
-            secondsLeft = 90;
+            secondsLeft = 60;
             playAgain();
         }
     }, 1000)
