@@ -1,12 +1,4 @@
-// upon selection a new question needs to appear with new answers 
-// after so many questions, the game ends
-// if the game ends before the timer hits 0, i need to record a score
-// if a score is recorded, i need a spot for user to enter name 
-// then i need a high score box to display names and scores(local storage) 
-// then i need buttons to start again 
-// need a button to clear high scores 
-// have scoreboard shown on page
-
+// This is an object that stores my quiz material. It holds the question, the choices, and the answer. 
 var quizMaterial = [
     {
         question: "__________ is used by programmers across the world to create dynamic and interactive web content like applications and browsers.",
@@ -49,7 +41,7 @@ var quizMaterial = [
         answer: "loops"
     }
 ];
-
+// These are variables needed for buttons and timers. I am either calling on them in the HTML or I am creating an element. 
 var startElem = document.getElementById("startEl");
 var countdownEl = document.getElementById("countdown");
 var answerElem = document.getElementById("answerEl");
@@ -59,16 +51,17 @@ var startAgain = document.getElementById("startAgain");
 var questionNumber = 0;
 var secondsLeft = 60;
 var countdownTimer;
-
+// The start game button
 var startBtn = document.querySelector(".startbtn");
 startBtn.addEventListener("click", timeDown);
-
+// The button to reset the game
 var resetBtn = document.querySelector(".resetgamebtn");
 resetBtn.addEventListener("click", function () {
     window.location.reload();
 })
-
+// This is the main function that runs when you start the game. 
 function timeDown() {
+    // These first 7 lines are used to set the page for it to start. 
     startElem.style.display = "none";
     answerElem.textContent = "";
     countdownEl.textContent = "60 Seconds Left!"
@@ -83,6 +76,7 @@ function timeDown() {
         countdownEl.textContent = secondsLeft + " Seconds Left!";
         // If the timer hits 0, the game ends 
         if (secondsLeft <= 0) {
+            // These are all the things that happens when the game ends. 
             clearInterval(countdownTimer);
             questionElem.textContent = "";
             answerbox.textContent = "";
@@ -91,9 +85,10 @@ function timeDown() {
             playAgain();
         }
     }, 1000)
+    // This is where I call the function to show my quiz material, starting at the first index. 
     showQuestions(quizMaterial[questionNumber]);
 }
-
+// This function was made so the user can play the game again. 
 function playAgain() {
     questionNumber = 0;
     playAgainBtn.textContent = "Play Again?"
@@ -101,10 +96,10 @@ function playAgain() {
     startAgain.appendChild(playAgainBtn);
     playAgainBtn.addEventListener("click", timeDown);
 }
-
+// This is the function that shows the material. 
 function showQuestions(quizTime) {
     questionElem.textContent = quizTime.question;
-
+    // This is a for loop that creates elements to show the choices. It also checks if the user chose the right answer to the question. 
     for (i = 0; i < quizTime.choices.length; i++) {
         if (i <= quizTime.choices.length) {
             var answers = document.createElement("button");
@@ -138,7 +133,7 @@ function showQuestions(quizTime) {
     questionNumber++
     console.log(questionNumber)
 }
-
+// These are variables created to store information to use localStorage
 var playerName;
 var playerScore;
 var submitBtn = document.createElement("input");
@@ -151,8 +146,7 @@ enterName.setAttribute("id", "nameBox");
 enterName.setAttribute("type", "text");
 enterName.setAttribute("class", "nameStyle")
 var userStats = document.getElementById("userStats")
-
-// *** need this function to store a name input & score from timer to local storage
+// This function is used to record the name and score of the user. 
 function recordStats() {
     if (!enterName.value) {
         return;
@@ -161,26 +155,33 @@ function recordStats() {
         enterName.value = "";
     }
     playerScore = secondsLeft;
-    var userInfo = {
-        userName: playerName,
-        userScore: playerScore
-    }
-    console.log(userInfo)
+    var userInfo = [playerName, playerScore]
+    // This is checking the users score to decide if it is the new high score. 
+    if (playerScore >= userInfo[1]) {
+        localStorage.setItem("userInfo", JSON.stringify(userInfo));
+        highScoreList();
 
-    localStorage.setItem("userInfo", JSON.stringify(userInfo));
-    highScoreList();
-
-    function highScoreList() {
-        var lastScore = JSON.parse(localStorage.getItem("userInfo"));
-        if (userInfo !== null) {
-            userStats.append("Name: " + lastScore.userName + ": Score: " + lastScore.userScore);
+        function highScoreList() {
+            var lastScore = JSON.parse(localStorage.getItem("userInfo"));
+            if (userInfo !== null) {
+                userStats.innerHTML = ("<h3>High Score:</h3> \n Name: " + lastScore[0] + "   Score: " + lastScore[1]);
+            }
         }
     }
+    enterName.remove();
+    submitBtn.remove();
 }
-
-
+// This function loads the highest score once the page loads, if the user has previous played the game. 
+function showScoreList() {
+    var showScore = JSON.parse(localStorage.getItem("userInfo"));
+    if (showScore !== null) {
+        userStats.append("Name: " + showScore[0] + "   Score: " + showScore[1]);
+    }
+}
+showScoreList();
+// This will clear the high score. 
 var clearscores = document.getElementById("clearscores");
 clearscores.addEventListener("click", function () {
     localStorage.clear();
-    userStats.innerHTML = "<h3>High Scores</h3>";
+    userStats.innerHTML = "<h3>High Score:</h3>";
 });
