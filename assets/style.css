@@ -1,13 +1,3 @@
-/* 
-=== high score box 
-=== welcome statement
-=== start button -> makes question appear
-    -> makes choices appear (buttons?)
-    -> starts a timer that counts down
-when game ends, space to enter players name
-option to clear high scores
-option to play again
- */
 * {
     padding: 0px;
     margin: 0px;
